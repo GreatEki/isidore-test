@@ -10,3 +10,14 @@ export const GET_USERS = gql`
     }
   }
 `;
+
+export const GET_BUSINESSES = gql`
+  query GetAllBusinesses {
+    getBusinesses {
+      id
+      name
+      yearOfEstablishment
+      owner
+    }
+  }
+`;

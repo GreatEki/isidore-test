@@ -27,14 +27,24 @@ export const DELETE_USER = gql`
   }
 `;
 
-
 export const CREATE_BUSINESS = gql`
   mutation CreateBusiness($input: CreateBusinessInput!) {
-  createBusiness(input: $input) {
-    id
-    name
-    yearOfEstablishment
-    owner
+    createBusiness(input: $input) {
+      id
+      name
+      yearOfEstablishment
+      owner
+    }
   }
-}
-`
+`;
+
+export const UPDATE_BUSINESS = gql`
+  mutation UpdateBusiness($updateBusinessInput2: UpdateBusinessInput!) {
+    updateBusiness(input: $updateBusinessInput2) {
+      id
+      name
+      yearOfEstablishment
+      owner
+    }
+  }
+`;

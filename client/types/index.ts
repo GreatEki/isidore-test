@@ -6,3 +6,10 @@ export interface IUser {
 }
 
 export type ActionT = "create" | "update";
+
+export interface IBusiness {
+  id: number;
+  name: string;
+  yearOfEstablishment: string;
+  owner: number;
+}

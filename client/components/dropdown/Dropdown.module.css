@@ -1,0 +1,32 @@
+.customSelector {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+    border: 1px solid black;
+}
+
+.selectDropdown {
+    /* min-height: 45px; */
+    background: transparent;
+    border: black;
+    border-radius: 0.5rem;
+    width: 100%;
+    color: black;
+    padding: 0.5rem;
+    outline: none;
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+}
+
+
+.arrow {
+    position: absolute;
+    right: 30px;
+    top: 0.5rem;
+    font-size: 1.5rem;
+    pointer-events: none;
+}
