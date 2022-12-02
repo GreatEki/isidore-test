@@ -1,0 +1,23 @@
+.nav {
+    margin: 10px auto 20px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border-bottom: 1px solid #ddd;
+  }
+
+
+  .navLinks {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav a {
+    text-decoration: none;
+  }
+
+  

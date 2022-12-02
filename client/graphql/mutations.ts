@@ -26,3 +26,15 @@ export const DELETE_USER = gql`
     deleteUser(id: $deleteUserId)
   }
 `;
+
+
+export const CREATE_BUSINESS = gql`
+  mutation CreateBusiness($input: CreateBusinessInput!) {
+  createBusiness(input: $input) {
+    id
+    name
+    yearOfEstablishment
+    owner
+  }
+}
+`

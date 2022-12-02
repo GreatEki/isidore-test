@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Input, Button, User } from "../components";
 import React, { useState } from "react";
@@ -98,7 +96,10 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <h1 className="text-center text-capitalize"> {actionType} User </h1>
-      <form onSubmit={(e) => handleSubmit(e, actionType)}>
+      <form
+        onSubmit={(e) => handleSubmit(e, actionType)}
+        className={styles.userForm}
+      >
         <div className="form-item">
           <Input
             type="text"
