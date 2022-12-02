@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button, Dropdown } from "../../components";
+import { Input, Button, Dropdown, BusComp } from "../../components";
 import styles from "./Business.module.css";
 import { ActionT, IBusiness } from "../../types";
 import { CREATE_BUSINESS, UPDATE_BUSINESS } from "../../graphql/mutations";
@@ -117,10 +117,7 @@ export default function Business() {
         <article className="list">
           <h3 className="text-center"> Business</h3>
           {businesses?.getBusinesses.map((bus: any, index: number) => (
-            <div key={index}>
-              <p>{bus.name}</p>
-              <p> {bus.yearOfEstablishment}</p>
-            </div>
+            <BusComp key={index} business={bus} />
           ))}
         </article>
       </section>

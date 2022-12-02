@@ -12,7 +12,7 @@ interface Props {
 
 const Input: React.FC<Props> = (props) => {
   return (
-    <div>
+    <div className={InputCSS.inputWrapper}>
       <label className={InputCSS.label} htmlFor={props.name}>
         {" "}
         {props.label}{" "}

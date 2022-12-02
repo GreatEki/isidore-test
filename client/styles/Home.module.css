@@ -1,8 +1,7 @@
-.container {
-  padding: 0 2rem;
-}
+
 
 .userForm {
+  padding: 0 2rem;
   display: grid;
   place-items: center;
   border: 1px solid black;
