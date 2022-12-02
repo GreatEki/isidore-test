@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.form-item {
+  margin: 20px 0;
+}
+
+.cursor:hover {
+  cursor: pointer;
+}

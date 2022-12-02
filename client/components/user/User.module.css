@@ -1,0 +1,7 @@
+.users {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 0 20px;
+
+}
