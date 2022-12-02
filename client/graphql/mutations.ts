@@ -39,12 +39,18 @@ export const CREATE_BUSINESS = gql`
 `;
 
 export const UPDATE_BUSINESS = gql`
-  mutation UpdateBusiness($updateBusinessInput2: UpdateBusinessInput!) {
-    updateBusiness(input: $updateBusinessInput2) {
+  mutation UpdateBusiness($updateBusinessInput: UpdateBusinessInput!) {
+    updateBusiness(input: $updateBusinessInput) {
       id
       name
       yearOfEstablishment
       owner
     }
+  }
+`;
+
+export const DELETE_BUSINESS = gql`
+  mutation DeleteBusiness($deleteBusinessId: ID!) {
+    deleteBusiness(id: $deleteBusinessId)
   }
 `;

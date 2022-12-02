@@ -5,8 +5,10 @@ import { FiEdit2 } from "react-icons/fi";
 import { MdOutlineDelete } from "react-icons/md";
 interface Props {
   business: IBusiness;
+  onDelete: (id: number) => void;
+  onEdit: (id: IBusiness) => void;
 }
-const BusComp: React.FC<Props> = ({ business }) => {
+const BusComp: React.FC<Props> = ({ business, onEdit, onDelete }) => {
   return (
     <main className={styles.busContainer}>
       <div className={styles.business}>
@@ -19,12 +21,12 @@ const BusComp: React.FC<Props> = ({ business }) => {
         <p> {business.yearOfEstablishment}</p>
       </div>
 
-      <div className={styles.business}>
+      <div className={styles.business} onClick={() => onEdit(business)}>
         <h5> Edit </h5>
         <FiEdit2 />
       </div>
 
-      <div className={styles.business}>
+      <div className={styles.business} onClick={() => onDelete(business.id)}>
         <h5> Delete </h5>
         <MdOutlineDelete />
       </div>

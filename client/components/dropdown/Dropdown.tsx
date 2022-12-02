@@ -7,6 +7,7 @@ interface Props {
   textContent: string;
   optionValue: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  state: any;
 }
 
 interface SelectI {
@@ -15,7 +16,7 @@ interface SelectI {
   key: any;
 }
 const Dropdown: React.FC<Props> = (props) => {
-  const { list, textContent, optionValue, onChange } = props;
+  const { list, textContent, optionValue, onChange, state } = props;
   const [optionList, setOptionList] = useState<SelectI[]>([]);
 
   useEffect(() => {
@@ -43,7 +44,11 @@ const Dropdown: React.FC<Props> = (props) => {
   return (
     <label className={styles.customSelector}>
       {" "}
-      <select className={styles.selectDropdown} onChange={onChange}>
+      <select
+        className={styles.selectDropdown}
+        onChange={onChange}
+        value={state}
+      >
         {optionList ? (
           optionList.map((item, index) => (
             <option key={index} value={item.value}>

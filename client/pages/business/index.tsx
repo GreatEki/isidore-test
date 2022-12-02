@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Input, Button, Dropdown, BusComp } from "../../components";
 import styles from "./Business.module.css";
 import { ActionT, IBusiness } from "../../types";
-import { CREATE_BUSINESS, UPDATE_BUSINESS } from "../../graphql/mutations";
+import {
+  CREATE_BUSINESS,
+  DELETE_BUSINESS,
+  UPDATE_BUSINESS,
+} from "../../graphql/mutations";
 import { GET_BUSINESSES } from "../../graphql/queries";
 import { GET_USERS } from "../../graphql/queries";
 import { useQuery, useMutation } from "@apollo/client";
@@ -12,7 +16,8 @@ const INITIAL_STATE = {
   id: 0,
   name: "",
   yearOfEstablishment: "",
-  owner: 1,
+  owner: 0,
+  ownerName: "",
 };
 
 export default function Business() {
@@ -25,10 +30,21 @@ export default function Business() {
   const [createBusiness] = useMutation(CREATE_BUSINESS, {
     onCompleted: (data) => {
       client.refetchQueries({ include: [GET_BUSINESSES] });
+      setBusiness(INITIAL_STATE);
     },
   });
 
-  const [updateBusiness] = useMutation(UPDATE_BUSINESS);
+  const [updateBusiness] = useMutation(UPDATE_BUSINESS, {
+    onCompleted: () => {
+      client.refetchQueries({ include: [GET_BUSINESSES] });
+    },
+  });
+
+  const [deleteBusiness] = useMutation(DELETE_BUSINESS, {
+    onCompleted: () => {
+      client.refetchQueries({ include: [GET_BUSINESSES] });
+    },
+  });
 
   function handleSubmit(e: React.FormEvent, actionType: ActionT) {
     console.log(business);
@@ -47,7 +63,11 @@ export default function Business() {
         });
         break;
       case "update":
-        updateBusiness({ variables: { input: { ...business } } });
+        updateBusiness({
+          variables: {
+            updateBusinessInput: { id, name, yearOfEstablishment, owner },
+          },
+        });
         break;
       default:
         createBusiness({
@@ -68,9 +88,35 @@ export default function Business() {
   }
 
   function handleSelectChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    console.log(e.target.value);
+    const theOwner = userList.users.find(
+      (user: any) => user.firstName === e.target.value
+    );
+
+    setBusiness((prev) => ({
+      ...prev,
+      owner: theOwner?.id,
+      ownerName: theOwner.firstName,
+    }));
   }
 
+  function onEdit(business: IBusiness) {
+    setActionType("update");
+    const theOwner = userList.users.find(
+      (user: any) => user.id === business.owner
+    );
+    setBusiness({
+      ...business,
+      owner: theOwner.id,
+      ownerName: theOwner.firstName,
+    });
+  }
+
+  function onDelete(id: number) {
+    deleteBusiness({ variables: { deleteBusinessId: id } });
+  }
+  {
+    console.log(business.ownerName);
+  }
   return (
     <div className={styles.container}>
       <h1 className="text-center text-capitalize"> {actionType} Business </h1>
@@ -103,8 +149,9 @@ export default function Business() {
           <Dropdown
             list={userList?.users || []}
             textContent="firstName"
-            optionValue="id"
+            optionValue="firstName"
             onChange={handleSelectChange}
+            state={business.ownerName}
           />
         </div>
 
@@ -117,7 +164,12 @@ export default function Business() {
         <article className="list">
           <h3 className="text-center"> Business</h3>
           {businesses?.getBusinesses.map((bus: any, index: number) => (
-            <BusComp key={index} business={bus} />
+            <BusComp
+              key={index}
+              business={bus}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
           ))}
         </article>
       </section>

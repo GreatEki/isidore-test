@@ -12,4 +12,5 @@ export interface IBusiness {
   name: string;
   yearOfEstablishment: string;
   owner: number;
+  ownerName: string;
 }

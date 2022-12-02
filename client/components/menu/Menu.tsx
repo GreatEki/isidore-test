@@ -7,22 +7,13 @@ const Menu = () => {
     <nav className={styles.nav}>
       <ul className={styles.navLinks}>
         <li>
-          <Link href="/">
-            {" "}
-            <a> User </a>
-          </Link>
+          <Link href="/"> User</Link>
         </li>
         <li>
-          <Link href="/business">
-            {" "}
-            <a> Business </a>
-          </Link>
+          <Link href="/business"> Business</Link>
         </li>
         <li>
-          <Link href="/customer">
-            {" "}
-            <a> Customer </a>
-          </Link>
+          <Link href="/customer"> Customer</Link>
         </li>
       </ul>
     </nav>
