@@ -4,7 +4,11 @@ import styles from "./Customer.module.css";
 import { ICustomer } from "../../types";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_CUSTOMERS } from "../../graphql/queries";
-import { ADD_CUSTOMER } from "../../graphql/mutations";
+import {
+  ADD_CUSTOMER,
+  DELETE_CUSTOMER,
+  UPDATE_CUSTOMER,
+} from "../../graphql/mutations";
 import client from "../../graphql/client";
 
 const INITIAL_STATE = {
@@ -27,17 +31,38 @@ export default function Customer() {
     },
   });
 
+  const [updateCustomer] = useMutation(UPDATE_CUSTOMER, {
+    onCompleted: () => {
+      client.refetchQueries({ include: [GET_CUSTOMERS] });
+      setCustomer(INITIAL_STATE);
+      setActionType("create");
+    },
+  });
+
+  const [deleteCustomer] = useMutation(DELETE_CUSTOMER, {
+    onCompleted: () => {
+      client.refetchQueries({ include: [GET_CUSTOMERS] });
+    },
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCustomer((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent, actionType: string) => {
-    const { firstName, lastName, email } = customer;
+    const { id, firstName, lastName, email } = customer;
     e.preventDefault();
     switch (actionType) {
       case "create":
         addCustomer({ variables: { input: { firstName, lastName, email } } });
+        break;
+      case "update":
+        updateCustomer({
+          variables: {
+            updateCustomerInput: { id, firstName, lastName, email },
+          },
+        });
         break;
       default:
         addCustomer({ variables: { input: { firstName, lastName, email } } });
@@ -46,10 +71,13 @@ export default function Customer() {
   };
 
   const onEdit = (customer: ICustomer) => {
-    console.log(customer);
+    setActionType("update");
+    setCustomer(customer);
   };
 
-  const onDelete = (id: number) => {};
+  const onDelete = (id: number) => {
+    deleteCustomer({ variables: { deleteCustomerId: id } });
+  };
 
   if (loading) {
     return <div> Loading ....</div>;

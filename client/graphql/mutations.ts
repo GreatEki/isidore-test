@@ -64,3 +64,19 @@ export const ADD_CUSTOMER = gql`
     }
   }
 `;
+
+export const UPDATE_CUSTOMER = gql`
+  mutation UpdateCustomer($updateCustomerInput: UpdateCustomerInput!) {
+    updateCustomer(input: $updateCustomerInput) {
+      firstName
+      lastName
+      email
+    }
+  }
+`;
+
+export const DELETE_CUSTOMER = gql`
+  mutation DeleteCustomer($deleteCustomerId: ID!) {
+    deleteCustomer(id: $deleteCustomerId)
+  }
+`;
