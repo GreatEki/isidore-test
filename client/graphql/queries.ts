@@ -21,3 +21,14 @@ export const GET_BUSINESSES = gql`
     }
   }
 `;
+
+export const GET_CUSTOMERS = gql`
+  query GetCustomers {
+    getCustomers {
+      id
+      email
+      firstName
+      lastName
+    }
+  }
+`;

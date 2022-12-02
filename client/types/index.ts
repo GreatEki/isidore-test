@@ -14,3 +14,10 @@ export interface IBusiness {
   owner: number;
   ownerName: string;
 }
+
+export interface ICustomer {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}

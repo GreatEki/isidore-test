@@ -54,3 +54,13 @@ export const DELETE_BUSINESS = gql`
     deleteBusiness(id: $deleteBusinessId)
   }
 `;
+
+export const ADD_CUSTOMER = gql`
+  mutation AddCustomer($input: AddCustomerInput!) {
+    addCustomer(input: $input) {
+      firstName
+      lastName
+      email
+    }
+  }
+`;

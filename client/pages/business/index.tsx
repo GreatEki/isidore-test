@@ -31,12 +31,14 @@ export default function Business() {
     onCompleted: (data) => {
       client.refetchQueries({ include: [GET_BUSINESSES] });
       setBusiness(INITIAL_STATE);
+      setActionType("create");
     },
   });
 
   const [updateBusiness] = useMutation(UPDATE_BUSINESS, {
     onCompleted: () => {
       client.refetchQueries({ include: [GET_BUSINESSES] });
+      setBusiness(INITIAL_STATE);
     },
   });
 
