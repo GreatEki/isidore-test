@@ -22,6 +22,16 @@ export const GET_BUSINESSES = gql`
   }
 `;
 
+export const GET_BUSINESS = gql`
+  query GetBusiness($getBusinessId: ID!) {
+    getBusiness(id: $getBusinessId) {
+      id
+      name
+      owner
+    }
+  }
+`;
+
 export const GET_CUSTOMERS = gql`
   query GetCustomers {
     getCustomers {

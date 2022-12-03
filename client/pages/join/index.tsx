@@ -1,10 +1,6 @@
 import React, { FormEvent, useState } from "react";
-import { Dropdown, Button } from "components";
-import {
-  GET_CUSTOMERS,
-  GET_BUSINESSES,
-  GET_BUSINESS_CUSTOMERS,
-} from "graphql/queries";
+import { Dropdown, Button, BusComp } from "components";
+import { GET_CUSTOMERS, GET_BUSINESSES } from "graphql/queries";
 import { ADD_CUSTOMER_TO_BUSINESS } from "graphql/mutations";
 import { useQuery, useMutation } from "@apollo/client";
 import styles from "./Join.module.css";
@@ -33,9 +29,6 @@ export default function CustomerBusiness() {
       console.log(data);
     },
   });
-  // const { data: businessCustomers } = useQuery(GET_BUSINESS_CUSTOMERS, {
-  //   variables: { getBusinessCustomersId:  }
-  // });
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -43,7 +36,7 @@ export default function CustomerBusiness() {
     switch (name) {
       case "business":
         selected = businessList.getBusinesses.find(
-          (bus: IBusiness) => bus.id === value
+          (bus: IBusiness) => bus.id === Number(value)
         );
         setTheBusiness(selected);
         break;
@@ -107,7 +100,10 @@ export default function CustomerBusiness() {
 
       <section>
         <article className="list">
-          <h3 className="text-center"> Customers </h3>
+          <h3 className="text-center"> Businesses </h3>
+          {businessList?.getBusinesses.map((bus: any, index: number) => (
+            <BusComp key={index} business={bus} />
+          ))}
         </article>
       </section>
     </div>

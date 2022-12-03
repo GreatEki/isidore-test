@@ -9,3 +9,13 @@
     border: 1px solid black;
     padding: 2rem;
   }
+
+.businessDetails {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.businessName {
+    word-wrap: wrap;
+}
