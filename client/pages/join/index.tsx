@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 import { Dropdown, Button, BusComp } from "components";
 import { GET_CUSTOMERS, GET_BUSINESSES } from "graphql/queries";
 import { ADD_CUSTOMER_TO_BUSINESS } from "graphql/mutations";
@@ -7,6 +8,7 @@ import styles from "./Join.module.css";
 import { IBusiness, IUser } from "types";
 
 export default function CustomerBusiness() {
+  const router = useRouter();
   const [theBusiness, setTheBusiness] = useState<IBusiness>({
     id: 0,
     name: "",
@@ -21,11 +23,21 @@ export default function CustomerBusiness() {
     lastName: "",
     email: "",
   });
-  const { data: businessList } = useQuery(GET_BUSINESSES);
-  const { data: customerList } = useQuery(GET_CUSTOMERS);
+  const { data: businessList } = useQuery(GET_BUSINESSES, {
+    onCompleted: () => {
+      setTheBusiness(businessList.getBusinesses[0]);
+    },
+  });
+  const { data: customerList } = useQuery(GET_CUSTOMERS, {
+    onCompleted: () => {
+      setTheCustomer(customerList.getCustomers[0]);
+    },
+  });
 
   const [addCustomerToBusiness] = useMutation(ADD_CUSTOMER_TO_BUSINESS, {
-    onCompleted: () => {},
+    onCompleted: () => {
+      router.push(`/business/${theBusiness.id}`);
+    },
   });
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -34,13 +46,13 @@ export default function CustomerBusiness() {
     switch (name) {
       case "business":
         selected = businessList.getBusinesses.find(
-          (bus: IBusiness) => bus.id === Number(value)
+          (bus: IBusiness) => Number(bus.id) === Number(value)
         );
         setTheBusiness(selected);
         break;
       case "customer":
         selected = customerList.getCustomers.find(
-          (cus: IUser) => cus.id === Number(value)
+          (cus: IUser) => Number(cus.id) === Number(value)
         );
         setTheCustomer(selected);
         break;
@@ -54,8 +66,8 @@ export default function CustomerBusiness() {
     addCustomerToBusiness({
       variables: {
         addCustomerToBusinessInput: {
-          business: theBusiness.id,
-          customer: theCustomer.id,
+          business: Number(theBusiness.id),
+          customer: Number(theCustomer.id),
         },
       },
     });
@@ -73,7 +85,7 @@ export default function CustomerBusiness() {
             list={businessList?.getBusinesses || []}
             textContent="name"
             optionValue="id"
-            state={"Ekene"}
+            state={theBusiness?.name}
             onChange={handleSelectChange}
             name="business"
             label="Select Business"
@@ -86,7 +98,7 @@ export default function CustomerBusiness() {
             list={customerList?.getCustomers || []}
             textContent="firstName"
             optionValue="id"
-            state={theCustomer.firstName}
+            state={theCustomer?.firstName}
             onChange={handleSelectChange}
           />
         </div>
