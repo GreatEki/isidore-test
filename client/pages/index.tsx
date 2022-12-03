@@ -1,11 +1,11 @@
 import styles from "../styles/Home.module.css";
-import { Input, Button, User } from "../components";
+import { Input, Button, User } from "components";
 import React, { useState } from "react";
-import { GET_USERS } from "../graphql/queries";
+import { GET_USERS } from "graphql/queries";
 import { useQuery, useMutation } from "@apollo/client";
-import { CREATE_USER, DELETE_USER, UPDATE_USER } from "../graphql/mutations";
-import client from "../graphql/client";
-import { IUser, ActionT } from "../types";
+import { CREATE_USER, DELETE_USER, UPDATE_USER } from "graphql/mutations";
+import client from "graphql/client";
+import { IUser, ActionT } from "types";
 
 const INITIAL_STATE = {
   id: 0,
@@ -86,7 +86,7 @@ export default function Home() {
   function editUser(user: IUser) {
     const { id, firstName, lastName, email } = user;
     setActionType("update");
-    setUser({ id, firstName, lastName, email });
+    setUser({ id: Number(id), firstName, lastName, email });
   }
 
   function onDelete(id: number) {

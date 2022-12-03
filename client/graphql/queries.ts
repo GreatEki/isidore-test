@@ -32,3 +32,19 @@ export const GET_CUSTOMERS = gql`
     }
   }
 `;
+
+export const GET_BUSINESS_CUSTOMERS = gql`
+  query GetBusinessCustomers($businessId: ID!, $getBusinessCustomersId: ID!) {
+    getBusinessCustomers(id: $getBusinessCustomersId) {
+      id
+      business {
+        id
+        name
+      }
+      customer {
+        firstName
+        lastName
+      }
+    }
+  }
+`;

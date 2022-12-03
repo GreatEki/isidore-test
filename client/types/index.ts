@@ -1,5 +1,5 @@
 export interface IUser {
-  id: number;
+  id: number | string;
   firstName: string;
   lastName: string;
   email: string;
@@ -8,7 +8,7 @@ export interface IUser {
 export type ActionT = "create" | "update";
 
 export interface IBusiness {
-  id: number;
+  id: number | string;
   name: string;
   yearOfEstablishment: string;
   owner: number;
@@ -16,7 +16,7 @@ export interface IBusiness {
 }
 
 export interface ICustomer {
-  id: number;
+  id: number | string;
   firstName: string;
   lastName: string;
   email: string;

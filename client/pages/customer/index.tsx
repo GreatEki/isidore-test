@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Input, Button, User } from "../../components";
+import { Input, Button, User } from "components";
 import styles from "./Customer.module.css";
-import { ICustomer } from "../../types";
+import { ICustomer } from "types";
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_CUSTOMERS } from "../../graphql/queries";
+import { GET_CUSTOMERS } from "graphql/queries";
 import {
   ADD_CUSTOMER,
   DELETE_CUSTOMER,
   UPDATE_CUSTOMER,
-} from "../../graphql/mutations";
-import client from "../../graphql/client";
+} from "graphql/mutations";
+import client from "graphql/client";
 
 const INITIAL_STATE = {
   id: 0,
@@ -136,7 +136,7 @@ export default function Customer() {
           <h3 className="text-center"> Customers </h3>
 
           {data &&
-            data.getCustomers.map((customer: any, index: number) => (
+            data.getCustomers.map((customer: ICustomer, index: number) => (
               <User
                 key={index}
                 user={customer}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import styles from "./Dropdown.module.css";
+import { v4 } from "uuid";
 
 interface Props {
   list: any[];
@@ -8,6 +9,8 @@ interface Props {
   optionValue: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   state: any;
+  label: string;
+  name: string;
 }
 
 interface SelectI {
@@ -16,7 +19,8 @@ interface SelectI {
   key: any;
 }
 const Dropdown: React.FC<Props> = (props) => {
-  const { list, textContent, optionValue, onChange, state } = props;
+  const { label, name, list, textContent, optionValue, onChange, state } =
+    props;
   const [optionList, setOptionList] = useState<SelectI[]>([]);
 
   useEffect(() => {
@@ -31,7 +35,7 @@ const Dropdown: React.FC<Props> = (props) => {
         optionData = {
           value: item[optionValue],
           textContent: item[textContent],
-          key: item[key],
+          key: v4(),
         };
       }
 
@@ -42,28 +46,31 @@ const Dropdown: React.FC<Props> = (props) => {
   }, [list, optionValue, textContent]);
 
   return (
-    <label className={styles.customSelector}>
-      {" "}
-      <select
-        className={styles.selectDropdown}
-        onChange={onChange}
-        value={state}
-      >
-        {optionList ? (
-          optionList.map((item, index) => (
-            <option key={index} value={item.value}>
-              {item.textContent}
-            </option>
-          ))
-        ) : (
-          <option value="null"> No Data Available </option>
-        )}
-      </select>
-      <span className={styles.arrow}>
-        {" "}
-        <MdKeyboardArrowDown />{" "}
-      </span>
-    </label>
+    <div>
+      <label> {label} </label>
+      <div className={styles.customSelector}>
+        <select
+          className={styles.selectDropdown}
+          onChange={onChange}
+          defaultValue={state}
+          name={name}
+        >
+          {optionList ? (
+            optionList.map((item, index) => (
+              <option key={index} value={item.value}>
+                {item.textContent}
+              </option>
+            ))
+          ) : (
+            <option value="null"> No Data Available </option>
+          )}
+        </select>
+        <span className={styles.arrow}>
+          {" "}
+          <MdKeyboardArrowDown />{" "}
+        </span>
+      </div>
+    </div>
   );
 };
 

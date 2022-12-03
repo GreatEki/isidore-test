@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Input, Button, Dropdown, BusComp } from "../../components";
+import { Input, Button, Dropdown, BusComp } from "components";
 import styles from "./Business.module.css";
-import { ActionT, IBusiness } from "../../types";
+import { ActionT, IBusiness } from "types";
 import {
   CREATE_BUSINESS,
   DELETE_BUSINESS,
   UPDATE_BUSINESS,
-} from "../../graphql/mutations";
-import { GET_BUSINESSES } from "../../graphql/queries";
-import { GET_USERS } from "../../graphql/queries";
+} from "graphql/mutations";
+import { GET_BUSINESSES } from "graphql/queries";
+import { GET_USERS } from "graphql/queries";
 import { useQuery, useMutation } from "@apollo/client";
-import client from "../../graphql/client";
+import client from "graphql/client";
 
 const INITIAL_STATE = {
   id: 0,
@@ -91,7 +91,7 @@ export default function Business() {
 
   function handleSelectChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const theOwner = userList.users.find(
-      (user: any) => user.firstName === e.target.value
+      (user: any) => user.id === e.target.value
     );
 
     setBusiness((prev) => ({
@@ -116,9 +116,7 @@ export default function Business() {
   function onDelete(id: number) {
     deleteBusiness({ variables: { deleteBusinessId: id } });
   }
-  {
-    console.log(business.ownerName);
-  }
+
   return (
     <div className={styles.container}>
       <h1 className="text-center text-capitalize"> {actionType} Business </h1>
@@ -149,9 +147,11 @@ export default function Business() {
 
         <div className="form-item">
           <Dropdown
+            label="Owner of Business"
+            name="owner"
             list={userList?.users || []}
             textContent="firstName"
-            optionValue="firstName"
+            optionValue="id"
             onChange={handleSelectChange}
             state={business.ownerName}
           />

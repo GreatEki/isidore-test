@@ -80,3 +80,23 @@ export const DELETE_CUSTOMER = gql`
     deleteCustomer(id: $deleteCustomerId)
   }
 `;
+
+export const ADD_CUSTOMER_TO_BUSINESS = gql`
+  mutation AddCustomerToBusiness(
+    $addCustomerToBusinessInput: AddCustomerBusinessInput!
+  ) {
+    addCustomerToBusiness(input: $addCustomerToBusinessInput) {
+      id
+      business {
+        id
+        name
+        owner
+      }
+      customer {
+        firstName
+        lastName
+        email
+      }
+    }
+  }
+`;

@@ -15,6 +15,9 @@ const Menu = () => {
         <li>
           <Link href="/customer"> Customer</Link>
         </li>
+        <li>
+          <Link href="/join"> Customer/Business </Link>
+        </li>
       </ul>
     </nav>
   );
