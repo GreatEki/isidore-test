@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input, Button, User } from "components";
 import styles from "./Customer.module.css";
-import { ICustomer } from "types";
+import { IUser } from "types";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_CUSTOMERS } from "graphql/queries";
 import {
@@ -19,7 +19,7 @@ const INITIAL_STATE = {
 };
 
 export default function Customer() {
-  const [customer, setCustomer] = useState<ICustomer>(INITIAL_STATE);
+  const [customer, setCustomer] = useState<IUser>(INITIAL_STATE);
   const [actionType, setActionType] = useState("create");
 
   const { loading, error, data } = useQuery(GET_CUSTOMERS);
@@ -70,7 +70,7 @@ export default function Customer() {
     }
   };
 
-  const onEdit = (customer: ICustomer) => {
+  const onEdit = (customer: IUser) => {
     setActionType("update");
     setCustomer(customer);
   };
@@ -136,7 +136,7 @@ export default function Customer() {
           <h3 className="text-center"> Customers </h3>
 
           {data &&
-            data.getCustomers.map((customer: ICustomer, index: number) => (
+            data.getCustomers.map((customer: IUser, index: number) => (
               <User
                 key={index}
                 user={customer}

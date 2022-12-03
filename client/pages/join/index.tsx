@@ -4,7 +4,7 @@ import { GET_CUSTOMERS, GET_BUSINESSES } from "graphql/queries";
 import { ADD_CUSTOMER_TO_BUSINESS } from "graphql/mutations";
 import { useQuery, useMutation } from "@apollo/client";
 import styles from "./Join.module.css";
-import { IBusiness, ICustomer } from "types";
+import { IBusiness, IUser } from "types";
 
 export default function CustomerBusiness() {
   const [theBusiness, setTheBusiness] = useState<IBusiness>({
@@ -15,7 +15,7 @@ export default function CustomerBusiness() {
     ownerName: "",
   });
 
-  const [theCustomer, setTheCustomer] = useState<ICustomer>({
+  const [theCustomer, setTheCustomer] = useState<IUser>({
     id: 0,
     firstName: "",
     lastName: "",
@@ -25,9 +25,7 @@ export default function CustomerBusiness() {
   const { data: customerList } = useQuery(GET_CUSTOMERS);
 
   const [addCustomerToBusiness] = useMutation(ADD_CUSTOMER_TO_BUSINESS, {
-    onCompleted: (data) => {
-      console.log(data);
-    },
+    onCompleted: () => {},
   });
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -42,7 +40,7 @@ export default function CustomerBusiness() {
         break;
       case "customer":
         selected = customerList.getCustomers.find(
-          (cus: ICustomer) => cus.id === value
+          (cus: IUser) => cus.id === Number(value)
         );
         setTheCustomer(selected);
         break;

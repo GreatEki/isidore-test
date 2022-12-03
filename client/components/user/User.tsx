@@ -6,11 +6,18 @@ import { IUser } from "../../types";
 
 interface Props {
   user: IUser;
-  onDelete: (id: number) => void;
-  onEdit: (user: IUser) => void;
+  onDelete?: (id: number) => void;
+  onEdit?: (user: IUser) => void;
 }
 
 const Users: React.FC<Props> = ({ user, onDelete, onEdit }) => {
+  function handleDelete(id: number) {
+    if (onDelete) onDelete(id);
+  }
+
+  function handleEdit(user: IUser) {
+    if (onEdit) onEdit(user);
+  }
   return (
     <div className={styles.users}>
       <div>
@@ -26,12 +33,12 @@ const Users: React.FC<Props> = ({ user, onDelete, onEdit }) => {
         <p>{user.email}</p>
       </div>
 
-      <div className="cursor" onClick={() => onEdit(user)}>
+      <div className="cursor" onClick={() => handleEdit(user)}>
         <h5> Edit </h5>
         <FiEdit2 />
       </div>
 
-      <div className="cursor" onClick={() => onDelete(user.id)}>
+      <div className="cursor" onClick={() => handleDelete(user.id)}>
         <h5> Delete </h5>
         <MdOutlineDelete />
       </div>

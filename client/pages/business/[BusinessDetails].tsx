@@ -1,7 +1,10 @@
 import React from "react";
 import client from "graphql/client";
 import { gql } from "@apollo/client";
-import { IBusiness } from "types";
+import { IBusiness, IUser } from "types";
+import { GET_BUSINESS_CUSTOMERS } from "graphql/queries";
+import { useQuery } from "@apollo/client";
+import { User } from "components";
 import styles from "./Business.module.css";
 
 interface Props {
@@ -9,6 +12,17 @@ interface Props {
 }
 
 const BusinessDetails: React.FC<Props> = (props) => {
+  const { loading, data: businessCustomers } = useQuery(
+    GET_BUSINESS_CUSTOMERS,
+    {
+      variables: { getBusinessCustomersId: Number(props.business.id) },
+    }
+  );
+
+  if (loading) {
+    return <div> Loading </div>;
+  }
+
   return (
     <div>
       <h1> Business Details </h1>
@@ -25,6 +39,16 @@ const BusinessDetails: React.FC<Props> = (props) => {
           <h5> Year of Establishment</h5>
           <p>{props.business?.yearOfEstablishment}</p>
         </div>
+      </article>
+
+      <br />
+      <article>
+        <h3> Customers</h3>
+        {businessCustomers.getBusinessCustomers.map(
+          (el: any, index: number) => (
+            <User key={index} user={el.customer} />
+          )
+        )}
       </article>
     </div>
   );

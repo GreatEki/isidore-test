@@ -44,7 +44,7 @@ export const GET_CUSTOMERS = gql`
 `;
 
 export const GET_BUSINESS_CUSTOMERS = gql`
-  query GetBusinessCustomers($businessId: ID!, $getBusinessCustomersId: ID!) {
+  query GetBusinessCustomers($getBusinessCustomersId: ID!) {
     getBusinessCustomers(id: $getBusinessCustomersId) {
       id
       business {
