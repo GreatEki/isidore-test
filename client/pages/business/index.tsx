@@ -171,6 +171,7 @@ export default function Business() {
               business={bus}
               onEdit={onEdit}
               onDelete={onDelete}
+              
             />
           ))}
         </article>

@@ -25,12 +25,12 @@ export default function CustomerBusiness() {
   });
   const { data: businessList } = useQuery(GET_BUSINESSES, {
     onCompleted: () => {
-      setTheBusiness(businessList.getBusinesses[0]);
+      setTheBusiness(businessList?.getBusinesses[0]);
     },
   });
   const { data: customerList } = useQuery(GET_CUSTOMERS, {
     onCompleted: () => {
-      setTheCustomer(customerList.getCustomers[0]);
+      setTheCustomer(customerList?.getCustomers[0]);
     },
   });
 
@@ -45,13 +45,13 @@ export default function CustomerBusiness() {
     let selected;
     switch (name) {
       case "business":
-        selected = businessList.getBusinesses.find(
+        selected = businessList?.getBusinesses.find(
           (bus: IBusiness) => Number(bus.id) === Number(value)
         );
         setTheBusiness(selected);
         break;
       case "customer":
-        selected = customerList.getCustomers.find(
+        selected = customerList?.getCustomers.find(
           (cus: IUser) => Number(cus.id) === Number(value)
         );
         setTheCustomer(selected);
@@ -111,9 +111,10 @@ export default function CustomerBusiness() {
       <section>
         <article className="list">
           <h3 className="text-center"> Businesses </h3>
-          {businessList?.getBusinesses.map((bus: any, index: number) => (
-            <BusComp key={index} business={bus} />
-          ))}
+          {businessList &&
+            businessList?.getBusinesses.map((bus: any, index: number) => (
+              <BusComp key={index} business={bus} />
+            ))}
         </article>
       </section>
     </div>

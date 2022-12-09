@@ -15,9 +15,4 @@ export interface IBusiness {
   ownerName: string;
 }
 
-export interface ICustomer {
-  id: number | string;
-  firstName: string;
-  lastName: string;
-  email: string;
-}
+
